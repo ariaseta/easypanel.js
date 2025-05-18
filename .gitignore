@@ -133,4 +133,3 @@ dist
 .bun
 bun.lockb
 node_modules/.cache/
-bun.lock
