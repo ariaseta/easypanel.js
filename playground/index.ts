@@ -9,3 +9,7 @@ export const client = new Client({
   token: process.env.token as string, // when provided package will skip authenticating if token works!
   validate: true,
 });
+
+const projects = await client.projects.listWithServices();
+console.log(projects);
+

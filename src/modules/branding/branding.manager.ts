@@ -14,6 +14,10 @@ import {
 export class BrandingManager {
   constructor(private client: Client) {}
 
+  /**
+   * Get error page settings
+   * @returns Error page settings
+   */
   async getErrorPageSettings() {
     const { data } = await this.client.http.get<GetErrorPageSettingsResponse>(
       "/branding.getErrorPageSettings"
@@ -22,27 +26,57 @@ export class BrandingManager {
     return data;
   }
 
+  /**
+   * Get interface settings
+   * @returns Interface settings
+   */
   async getInterfaceSettings() {
     const { data } = await this.client.http.get<GetInterfaceSettingsResponse>(
-      "/branding.updateErrorPageSettings"
+      "/branding.getInterfaceSettings"
     );
 
     return data;
   }
 
-  async setErrorPageSettings(body: SetErrorPageSettingsInput) {
+  /**
+   * Get public interface settings
+   * @returns Public interface settings
+   */
+  async getInterfaceSettingsPublic() {
+    const { data } = await this.client.http.get<GetInterfaceSettingsResponse>(
+      "/branding.getInterfaceSettingsPublic"
+    );
+
+    return data;
+  }
+
+  /**
+   * Set error page settings
+   * @param input Error page settings
+   * @returns Response
+   */
+  async setErrorPageSettings(input: SetErrorPageSettingsInput) {
+    await this.client.validateInput(input);
+
     const { data } = await this.client.http.post<SetErrorPageSettingsResponse>(
       "/branding.setErrorPageSettings",
-      body
+      input
     );
 
     return data;
   }
 
-  async setInterfaceSettings(body: SetInterfaceSettingsInput) {
+  /**
+   * Set interface settings
+   * @param input Interface settings
+   * @returns Response
+   */
+  async setInterfaceSettings(input: SetInterfaceSettingsInput) {
+    await this.client.validateInput(input);
+
     const { data } = await this.client.http.post<SetInterfaceSettingsResponse>(
       "/branding.setInterfaceSettings",
-      body
+      input
     );
 
     return data;

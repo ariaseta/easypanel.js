@@ -9,6 +9,10 @@ import { RemoveCertificateInput } from "./certificates.dto";
 export class CertificatesManager {
   constructor(private client: Client) {}
 
+  /**
+   * List all certificates
+   * @returns List of certificates
+   */
   async list() {
     const { data } = await this.client.http.get<ListCertificatesResponse>(
       "/certificates.listCertificates"
@@ -17,12 +21,17 @@ export class CertificatesManager {
     return data;
   }
 
-  async remove(body: RemoveCertificateInput) {
-    await this.client.validateInput(body);
+  /**
+   * Remove a certificate
+   * @param input Certificate domain
+   * @returns Remove certificate response
+   */
+  async remove(input: RemoveCertificateInput) {
+    await this.client.validateInput(input);
 
     const { data } = await this.client.http.post<RemoveCertificateResponse>(
       "/certificates.removeCertificate",
-      body
+      input
     );
 
     return data;

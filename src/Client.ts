@@ -8,12 +8,29 @@ import {
   AuthManager,
   BackupsManager,
   BrandingManager,
+  CertificatesManager,
+  CloudflareTunnelManager,
+  ClusterManager,
+  DatabaseBackupsManager,
   DeploymentsManager,
+  DockerBuildersManager,
+  DomainsManager,
   GithubManager,
   GitManager,
   LicensesManager,
+  MiddlewaresManager,
   MonitorManager,
+  MountsManager,
+  NotificationsManager,
+  PortsManager,
+  ProjectsManager,
+  ServicesManager,
+  SettingsManager,
   SetupManager,
+  StorageProvidersManager,
+  TraefikManager,
+  UsersManager,
+  VolumeBackupsManager,
 } from "./modules";
 import { validateOrReject } from "class-validator";
 
@@ -48,11 +65,28 @@ export class Client {
   actions = new ActionsManager(this);
   backups = new BackupsManager(this);
   branding = new BrandingManager(this);
+  certificates = new CertificatesManager(this);
+  cloudflareTunnel = new CloudflareTunnelManager(this);
+  cluster = new ClusterManager(this);
+  databaseBackups = new DatabaseBackupsManager(this);
   deployments = new DeploymentsManager(this);
+  dockerBuilders = new DockerBuildersManager(this);
+  domains = new DomainsManager(this);
   git = new GitManager(this);
   github = new GithubManager(this);
   licenses = new LicensesManager(this);
+  middlewares = new MiddlewaresManager(this);
   monitor = new MonitorManager(this);
+  mounts = new MountsManager(this);
+  notifications = new NotificationsManager(this);
+  ports = new PortsManager(this);
+  projects = new ProjectsManager(this);
+  services = new ServicesManager(this);
+  settings = new SettingsManager(this);
   setup = new SetupManager(this);
+  storageProviders = new StorageProvidersManager(this);
   templates = new SetupManager(this);
+  traefik = new TraefikManager(this);
+  users = new UsersManager(this);
+  volumeBackups = new VolumeBackupsManager(this);
 }

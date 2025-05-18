@@ -6,25 +6,35 @@ import { GetPublicKeyResponse, GenerateKeyresponse } from "./git.types";
 export class GitManager {
   constructor(private client: Client) {}
 
-  async getPublicKey(body: GetPublicKeyInput) {
-    await this.client.validateInput(body);
+  /**
+   * Get Git public key for a service
+   * @param input Service input
+   * @returns Public key
+   */
+  async getPublicKey(input: GetPublicKeyInput) {
+    await this.client.validateInput(input);
 
     const { data } = await this.client.http.get<GetPublicKeyResponse>(
       "/git.getPublicKey",
       {
-        params: body,
+        params: input,
       }
     );
 
     return data;
   }
 
-  async generateKey(body: GenerateKeyInput) {
-    await this.client.validateInput(body);
+  /**
+   * Generate Git key for a service
+   * @param input Service input
+   * @returns Generated key response
+   */
+  async generateKey(input: GenerateKeyInput) {
+    await this.client.validateInput(input);
 
     const { data } = await this.client.http.post<GenerateKeyresponse>(
       "/git.generateKey",
-      body
+      input
     );
 
     return data;

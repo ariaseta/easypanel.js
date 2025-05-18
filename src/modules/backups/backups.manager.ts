@@ -22,6 +22,10 @@ import {
 export class BackupsManager {
   constructor(private client: Client) {}
 
+  /**
+   * List backup destinations
+   * @returns List of backup destinations
+   */
   async listDestinations() {
     const { data } = await this.client.http.get<ListBackupDestinationsResponse>(
       "/backups.listBackupDestinations"
@@ -30,6 +34,10 @@ export class BackupsManager {
     return data;
   }
 
+  /**
+   * List backup destination options
+   * @returns List of backup destination options
+   */
   async listDestinationOptions() {
     const { data } = await this.client.http.get<ListDestinationOptionsResponse>(
       "/backups.listBackupDestinationOptions"
@@ -38,70 +46,102 @@ export class BackupsManager {
     return data;
   }
 
-  async getLog(body: GetBackupLogInput) {
-    await this.client.validateInput(body);
+  /**
+   * Get backup log for a service
+   * @param input Service input
+   * @returns Backup log
+   */
+  async getLog(input: GetBackupLogInput) {
+    await this.client.validateInput(input);
 
-    const { data } = await this.client.http.post<GetBackupLogResponse>(
+    const { data } = await this.client.http.get<GetBackupLogResponse>(
       "/backups.getBackupLog",
-      body
+      {
+        params: input,
+      }
     );
 
     return data;
   }
 
-  async clearLog(body: ClearBackupLogInput) {
-    await this.client.validateInput(body);
+  /**
+   * Clear backup log for a service
+   * @param input Service input
+   * @returns Clear backup log response
+   */
+  async clearLog(input: ClearBackupLogInput) {
+    await this.client.validateInput(input);
 
     const { data } = await this.client.http.post<ClearBackupLogResponse>(
       "/backups.clearBackupLog",
-      body
+      input
     );
 
     return data;
   }
 
-  async createDestination(body: CreateBackupDestinationInput) {
-    await this.client.validateInput(body);
+  /**
+   * Create a backup destination
+   * @param input Backup destination input
+   * @returns Created backup destination
+   */
+  async createDestination(input: CreateBackupDestinationInput) {
+    await this.client.validateInput(input);
 
     const { data } =
       await this.client.http.post<CreateBackupDestinationResponse>(
         "/backups.createBackupDestination",
-        body
+        input
       );
 
     return data;
   }
 
-  async updateDestination(body: UpdateBackupDestinationInput) {
-    await this.client.validateInput(body);
+  /**
+   * Update a backup destination
+   * @param input Backup destination input
+   * @returns Update backup destination response
+   */
+  async updateDestination(input: UpdateBackupDestinationInput) {
+    await this.client.validateInput(input);
 
     const { data } =
       await this.client.http.post<UpdateBackupDestinationResponse>(
         "/backups.updateBackupDestination",
-        body
+        input
       );
 
     return data;
   }
 
-  async destroyDestination(body: DestroyBackupDestinationInput) {
-    await this.client.validateInput(body);
+  /**
+   * Destroy a backup destination
+   * @param input Backup destination ID
+   * @returns Destroy backup destination response
+   */
+  async destroyDestination(input: DestroyBackupDestinationInput) {
+    await this.client.validateInput(input);
 
     const { data } =
       await this.client.http.post<DestroyBackupDestinationResponse>(
         "/backups.destroyBackupDestination",
-        body
+        input
       );
 
     return data;
   }
 
-  async restore(body: RestoreBackupInput) {
-    await this.client.validateInput(body);
+  /**
+   * Restore a backup
+   * @param input Restore backup input
+   * @returns Restore backup response
+   */
+  async restore(input: RestoreBackupInput) {
+    await this.client.validateInput(input);
 
     const { data } = await this.client.http.post<RestoreBackupResponse>(
       "/backups.restoreBackup",
-      body
+      input
     );
 
     return data;

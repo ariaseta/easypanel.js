@@ -14,34 +14,53 @@ import {
 export class ActionsManager {
   constructor(private client: Client) {}
 
-  async list(body: ListActionsInput) {
-    await this.client.validateInput(body);
+  /**
+   * List actions for a service
+   * @param input Service input
+   * @returns List of actions
+   */
+  async list(input: ListActionsInput) {
+    await this.client.validateInput(input);
 
-    const { data } = await this.client.http.post<ListActionsResponse>(
+    const { data } = await this.client.http.get<ListActionsResponse>(
       "/actions.listActions",
-      body
+      {
+        params: input,
+      }
     );
 
     return data;
   }
 
-  async get(body: GetActionInput) {
-    await this.client.validateInput(body);
+  /**
+   * Get action details
+   * @param input Action input
+   * @returns Action details
+   */
+  async get(input: GetActionInput) {
+    await this.client.validateInput(input);
 
-    const { data } = await this.client.http.post<GetActionResponse>(
+    const { data } = await this.client.http.get<GetActionResponse>(
       "/actions.getAction",
-      body
+      {
+        params: input,
+      }
     );
 
     return data;
   }
 
-  async kill(body: GetActionInput) {
-    await this.client.validateInput(body);
+  /**
+   * Kill an action
+   * @param input Action input
+   * @returns Kill action response
+   */
+  async kill(input: KillActionInput) {
+    await this.client.validateInput(input);
 
     const { data } = await this.client.http.post<KillActionResponse>(
       "/actions.killAction",
-      body
+      input
     );
 
     return data;
